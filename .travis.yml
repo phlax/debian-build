@@ -1,0 +1,30 @@
+# https://travis-ci.org/#!/phlax/debian-build
+
+install:
+  - make image
+
+script:
+  - echo "Backporting coreutils - example from https://wiki.debian.org/SimpleBackportCreation"
+  - mkdir build
+  - chmod 777 -R build
+  - >
+    docker run --name bob -v `pwd`/build:/home/bob -ti phlax/debian-build
+    bash -c
+    "apt source -t sid coreutils
+    && cd coreutils-*/
+    && sudo apt-get -y -qq build-dep -t sid coreutils
+    && export DEBFULLNAME=\"Bob the builder\"
+    && dch --bpo \"Adding backport!\"
+    && dpkg-buildpackage -us -uc"
+  - ls build | grep coreutils | grep deb
+
+before_deploy:
+  - echo $DOCKER_API_TOKEN | docker login -u phlax --password-stdin
+
+deploy:
+  provider: script
+  script: make hub-image
+  skip_cleanup: true
+  on:
+    all_branches: true
+    condition: $TRAVIS_BRANCH =~ ^(master)$
