@@ -1,0 +1,27 @@
+#!/bin/bash -e
+
+
+apt update -qq
+
+echo "INSTALLING: $BUILD_PKGS"
+
+apt install \
+    	-y \
+        -qq \
+	--no-install-recommends \
+        $BUILD_PKGS
+
+echo "deb http://ftp.debian.org/debian sid main contrib non-free" >> /etc/apt/sources.list
+echo "deb-src http://ftp.debian.org/debian sid main contrib non-free" >> /etc/apt/sources.list
+
+useradd \
+    -m \
+    -d /home/$BUILD_USERNAME \
+    -k /etc/skel \
+    -s /bin/bash \
+  $BUILD_USERNAME
+
+echo "$BUILD_USERNAME     ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$BUILD_USERNAME
+chmod 0440 /etc/sudoers.d/$BUILD_USERNAME
+
+apt update -qq
