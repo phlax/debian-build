@@ -17,6 +17,7 @@ ARG BUILD_PKGS="\
 	dh-golang \
 	dh-python \
 	equivs \
+	gosu \
 	gperf \
 	groff \
 	libjpeg62-turbo-dev \
@@ -41,5 +42,7 @@ ARG BUILD_USERNAME="bob"
 COPY install /tmp/install
 RUN /tmp/install
 
-USER $BUILD_USERNAME
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
 WORKDIR /home/$BUILD_USERNAME
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
