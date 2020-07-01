@@ -12,6 +12,8 @@ apt install \
 	--no-install-recommends \
         $BUILD_PKGS
 
+echo "deb http://ftp.debian.org/debian buster-backports main contrib non-free" >> /etc/apt/sources.list
+echo "deb-src http://ftp.debian.org/debian buster-backports main contrib non-free" >> /etc/apt/sources.list
 echo "deb http://ftp.debian.org/debian sid main contrib non-free" >> /etc/apt/sources.list
 echo "deb-src http://ftp.debian.org/debian sid main contrib non-free" >> /etc/apt/sources.list
 
