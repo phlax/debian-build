@@ -25,3 +25,4 @@ echo "$BUILD_USERNAME     ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$BUILD_USERNA
 chmod 0440 /etc/sudoers.d/$BUILD_USERNAME
 
 apt update -qq
+apt-get clean
