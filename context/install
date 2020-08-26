@@ -10,6 +10,7 @@ apt install \
     	-y \
         -qq \
 	--no-install-recommends \
+	-t buster-backports \
         $BUILD_PKGS
 
 echo "deb http://ftp.debian.org/debian buster-backports main contrib non-free" >> /etc/apt/sources.list
