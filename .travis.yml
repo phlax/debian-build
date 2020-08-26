@@ -13,7 +13,7 @@ script:
     "sudo apt-get update -t buster-backports
     && apt source -t testing coreutils
     && cd coreutils-*/
-    && sudo apt-get -o Debug::pkgProblemResolver=true -y -qq build-dep -t testing coreutils
+    && sudo apt-get -o Debug::pkgProblemResolver=true -y -qq build-dep --no-install-recommends -t testing coreutils
     && export DEBFULLNAME=\"Bob the builder\"
     && dch --bpo \"Adding backport!\"
     && dpkg-buildpackage -us -uc"
