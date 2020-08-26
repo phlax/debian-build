@@ -22,6 +22,8 @@ ARG BUILD_PKGS="\
 	gosu \
 	gperf \
 	groff \
+	libacl1-dev \
+	libattr1-dev \
 	libjpeg62-turbo-dev \
         libfuse-dev \
 	libfreetype6-dev \
