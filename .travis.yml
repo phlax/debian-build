@@ -4,20 +4,20 @@ install:
   - make image
 
 script:
-  - echo "Backporting coreutils - example from https://wiki.debian.org/SimpleBackportCreation"
+  - echo "Backporting fossil - example from https://wiki.debian.org/SimpleBackportCreation"
   - mkdir build
   - chmod 777 -R build
   - >
     docker run --name bob -v `pwd`/build:/home/bob -ti phlax/debian-build
     bash -c
     "sudo apt-get update -t buster-backports
-    && apt source -t testing coreutils
-    && cd coreutils-*/
-    && sudo apt-get -o Debug::pkgProblemResolver=true -y -qq build-dep --no-install-recommends -t testing coreutils
+    && apt source -t testing fossil
+    && cd fossil-*/
+    && sudo apt-get -o Debug::pkgProblemResolver=true -y -qq build-dep --no-install-recommends -t testing fossil
     && export DEBFULLNAME=\"Bob the builder\"
     && dch --bpo \"Adding backport!\"
     && dpkg-buildpackage -us -uc"
-  - ls build | grep coreutils | grep deb
+  - ls build | grep fossil | grep deb
 
 before_deploy:
   - echo $DOCKER_API_TOKEN | docker login -u phlax --password-stdin
