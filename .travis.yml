@@ -10,8 +10,8 @@ script:
   - >
     docker run --name bob -v `pwd`/build:/home/bob -ti phlax/debian-build
     bash -c
-    "apt source -t sid coreutils
-    && apt-get update -t buster-backports
+    "sudo apt-get update -t buster-backports
+    && apt source -t sid coreutils
     && cd coreutils-*/
     && sudo apt-get -o Debug::pkgProblemResolver=true -y -qq build-dep -t sid coreutils
     && export DEBFULLNAME=\"Bob the builder\"
